@@ -1,10 +1,15 @@
 name: SonarQube
-runs-on: self-hosted
-steps:
-  - uses: philips-software/sonar-scanner-action@1.2.0
-    with:
-      token: ${{ secrets.SONARQUBE_TOKEN }}
-      projectName: test-project
-      projectKey: test-project
-      url: https://sonarcloud.io/
-      enablePullRequestDecoration: true
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: philips-software/sonar-scanner-action@1.2.0
+        with:
+          token: ${{ secrets.SONARQUBE_TOKEN }}
+          projectName: test-project
+          projectKey: test-project
+          url: https://sonarcloud.io/
+          enablePullRequestDecoration: true
